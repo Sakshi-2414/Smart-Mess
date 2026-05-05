@@ -1,12 +1,15 @@
-# 🍽️ Smart Mess v2 — AI Food Quality Analyzer
+# 🍽️ Smart Mess — AI Food Quality Analyzer
 
-A modern hostel mess management system that collects student feedback, analyzes food quality using NLP-based sentiment analysis, and provides actionable insights to administrators.
+In many hostels, students face issues like poor food quality, unhygienic conditions, and repetitive menus, but there is no efficient system to track and analyze these problems. Feedback is often ignored or unstructured, making it difficult for administrators to take action.
+
+Smart Mess v2 addresses this problem by providing a digital platform where students can submit feedback easily. The system uses NLP-based sentiment analysis to automatically evaluate feedback, detect common complaints, and generate insights. This helps mess administrators understand real issues and improve food quality, hygiene, and overall student satisfaction.
+
 
 ---
 
 ## 🚀 Overview
 
-Smart Mess v2 is designed to solve real-world problems in hostel food systems by combining:
+Smart Mess  is designed to solve real-world problems in hostel food systems by combining:
 
 * 📊 Real-time feedback collection
 * 🤖 AI-based sentiment analysis
@@ -152,10 +155,6 @@ Password: admin123
 | GET    | `/api/analytics`     | Get analytics            |
 
 ---
-
-## 📸 Screenshots
-![Homepage](screenshots/homepage.png)
-
 
 ---
 
