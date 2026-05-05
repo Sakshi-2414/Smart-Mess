@@ -158,14 +158,31 @@ Password: admin123
 
 ## 📸 Screenshots
 
-### 🏠 Student Portal
-![Student Portal](screenshots/homepage.png)
+### 🏠 Homepage
+<p align="center">
+  <img src="screenshots/homepage.png" width="800"/>
+</p>
 
-### 📝 Feedback Page
-![Feedback](screenshots/feedback.png)
+### 🔐 Admin Login
+<p align="center">
+  <img src="screenshots/login.png" width="800"/>
+</p>
+
+### 📝 Feedback Submission
+<p align="center">
+  <img src="screenshots/feedback.png" width="800"/>
+</p>
 
 ### 📊 Admin Dashboard
-![Admin Dashboard](screenshots/admin-dashboard.png)
+<p align="center">
+  <img src="screenshots/admindashboard.png" width="800"/>
+</p>
+
+### ⚙️ Manage Menu
+<p align="center">
+  <img src="screenshots/manage.png" width="800"/>
+</p>
+
 ---
 
 ## 🌟 Future Improvements
