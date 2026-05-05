@@ -1,0 +1,191 @@
+/* ═══════════════════════════════════════════════
+   Student Portal — Layout & Components
+   ═══════════════════════════════════════════════ */
+
+/* ── Navbar ─────────────────────────────────── */
+.navbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(15,10,30,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.navbar-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 1.15rem; font-weight: 800; color: var(--text-primary);
+}
+.navbar-brand .logo-mark {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), #7c3aed);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; box-shadow: 0 0 14px var(--accent-glow);
+}
+.navbar-links { display: flex; align-items: center; gap: 6px; }
+.navbar-links a {
+  color: var(--text-secondary); font-size: 0.88rem; font-weight: 500;
+  padding: 7px 14px; border-radius: var(--radius-sm); transition: var(--transition);
+}
+.navbar-links a:hover { background: var(--accent-light); color: var(--accent); }
+
+/* ── Hero ────────────────────────────────────── */
+.hero {
+  position: relative; overflow: hidden;
+  padding: 80px 24px 100px;
+  text-align: center;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(168,85,247,0.2) 0%, transparent 70%);
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a855f7' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-content { position: relative; max-width: 640px; margin: 0 auto; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 16px; }
+.hero p   { font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 28px; }
+.hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* ── Wave divider ────────────────────────────── */
+.wave-divider { line-height: 0; overflow: hidden; }
+.wave-divider svg { display: block; }
+
+/* ── Container ───────────────────────────────── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.section    { padding: 56px 0; }
+
+.section-header { margin-bottom: 32px; }
+.section-header h2 { font-size: 1.5rem; margin-bottom: 6px; }
+
+/* ── Menu grid ───────────────────────────────── */
+.menu-tabs {
+  display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; align-items: center;
+}
+.menu-tab {
+  padding: 8px 18px; border-radius: 99px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  color: var(--text-secondary); font-size: 0.88rem; font-weight: 600;
+  cursor: pointer; transition: var(--transition);
+}
+.menu-tab.active, .menu-tab:hover {
+  background: var(--accent-light); color: var(--accent);
+  border-color: rgba(168,85,247,0.4);
+}
+.menu-date-input {
+  margin-left: auto;
+  padding: 8px 14px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  color: var(--text-primary); border-radius: var(--radius-sm);
+  font-size: 0.88rem; cursor: pointer;
+}
+.menu-date-input:focus { outline: none; border-color: var(--accent); }
+
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+
+.menu-card { position: relative; overflow: hidden; }
+.menu-card-stripe {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--pink));
+}
+.menu-card.breakfast .menu-card-stripe { background: linear-gradient(90deg, var(--orange), var(--yellow)); }
+.menu-card.lunch     .menu-card-stripe { background: linear-gradient(90deg, var(--green), var(--cyan)); }
+.menu-card.dinner    .menu-card-stripe { background: linear-gradient(90deg, var(--accent), var(--pink)); }
+
+.menu-card-head {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 16px; padding-top: 4px;
+}
+.meal-icon-wrap {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+}
+.breakfast .meal-icon-wrap { background: rgba(249,115,22,0.15); }
+.lunch     .meal-icon-wrap { background: rgba(16,185,129,0.15); }
+.dinner    .meal-icon-wrap { background: rgba(168,85,247,0.15); }
+
+.menu-card h3 { font-size: 1.05rem; font-weight: 700; }
+.menu-card .meal-time { font-size: 0.78rem; color: var(--text-muted); }
+
+.menu-items { list-style: none; }
+.menu-items li {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.9rem; color: var(--text-secondary);
+}
+.menu-items li:last-child { border-bottom: none; }
+.menu-items li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.menu-empty { text-align: center; padding: 24px; color: var(--text-muted); font-size: 0.88rem; }
+
+/* ── Star rating ─────────────────────────────── */
+.star-wrap { display: flex; flex-direction: row-reverse; gap: 4px; }
+.star-wrap input { display: none; }
+.star-wrap label { font-size: 2.2rem; cursor: pointer; color: var(--surface-3); transition: color 0.15s, transform 0.15s; line-height: 1; }
+.star-wrap label:hover,
+.star-wrap label:hover ~ label,
+.star-wrap input:checked ~ label { color: var(--yellow); }
+.star-wrap label:hover { transform: scale(1.2); }
+.rating-hint { font-size: 0.83rem; color: var(--text-muted); min-height: 18px; margin-top: 6px; font-style: italic; }
+
+/* ── Meal selector ───────────────────────────── */
+.meal-selector { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.meal-opt input { display: none; }
+.meal-opt label {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 14px 10px; border: 1.5px solid var(--border); border-radius: var(--radius);
+  cursor: pointer; transition: var(--transition); font-weight: 600; font-size: 0.85rem;
+  color: var(--text-muted); background: var(--surface-2);
+}
+.meal-opt label .em { font-size: 1.5rem; }
+.meal-opt label small { font-size: 0.72rem; font-weight: 400; }
+.meal-opt input:checked + label, .meal-opt label:hover {
+  border-color: var(--accent); background: var(--accent-light); color: var(--accent);
+}
+
+/* ── Voice button ────────────────────────────── */
+.textarea-wrap { position: relative; }
+.voice-btn {
+  position: absolute; bottom: 10px; right: 10px;
+  background: var(--accent-light); color: var(--accent);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 5px 11px; font-size: 0.78rem; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center; gap: 5px;
+  transition: var(--transition);
+}
+.voice-btn:hover { background: rgba(168,85,247,0.22); }
+.voice-btn.recording { background: rgba(239,68,68,0.2); color: var(--red); border-color: rgba(239,68,68,0.4); animation: pulse 1.2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.55;} }
+
+/* ── Char counter ────────────────────────────── */
+.char-counter { font-size: 0.78rem; color: var(--text-muted); text-align: right; margin-top: 4px; }
+.char-counter.warn { color: var(--yellow); }
+.char-counter.over { color: var(--red); }
+
+/* ── Feedback form card ──────────────────────── */
+.feedback-form-wrap { max-width: 680px; margin: 0 auto; }
+
+/* ── Success modal inner ─────────────────────── */
+.success-inner {
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: 48px 40px;
+  text-align: center; max-width: 420px; width: 100%;
+  box-shadow: var(--shadow-lg);
+}
+.success-icon { font-size: 4rem; display: block; margin-bottom: 16px; }
+.success-inner h2 { font-size: 1.5rem; margin-bottom: 8px; }
+
+/* ── Footer ──────────────────────────────────── */
+footer {
+  background: var(--surface-1); border-top: 1px solid var(--border);
+  text-align: center; padding: 24px;
+  font-size: 0.83rem; color: var(--text-muted);
+  margin-top: 60px;
+}
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 680px) {
+  .hero { padding: 56px 16px 72px; }
+  .meal-selector { grid-template-columns: 1fr; }
+  .navbar-links a:not(.btn) { display: none; }
+  .menu-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — Smart Mess Admin</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<!-- Auth loading overlay -->
+<div id="auth-overlay" class="loading-overlay">
+  <div class="loading-spinner-lg"></div>
+  <p>Authenticating...</p>
+</div>
+
+<div class="dash-layout">
+
+  <!-- ══ Sidebar ══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-brand">
+        <div class="logo-mark">🍽️</div>
+        <div>Smart Mess<span class="sub">Admin Panel</span></div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">Overview</div>
+      <button class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+        <span class="nav-ic">📊</span> Dashboard
+      </button>
+
+      <div class="nav-section">Analysis</div>
+      <button class="nav-item" data-page="feedback" onclick="showPage('feedback')">
+        <span class="nav-ic">💬</span> All Feedback
+      </button>
+      <button class="nav-item" data-page="analytics" onclick="showPage('analytics')">
+        <span class="nav-ic">📈</span> Charts & Trends
+      </button>
+      <button class="nav-item" data-page="keywords" onclick="showPage('keywords')">
+        <span class="nav-ic">🔍</span> Keyword Insights
+      </button>
+      <button class="nav-item" data-page="report" onclick="showPage('report')">
+        <span class="nav-ic">📋</span> Daily Report
+      </button>
+
+      <div class="nav-section">Management</div>
+      <button class="nav-item" data-page="menu" onclick="showPage('menu')">
+        <span class="nav-ic">🍛</span> Menu Manager
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="admin-chip">
+        <div class="admin-avatar" id="admin-avatar">A</div>
+        <div class="admin-info">
+          <div class="name" id="admin-name">Admin</div>
+          <div class="role">Mess Administrator</div>
+        </div>
+      </div>
+      <button class="btn btn-danger btn-full btn-sm" onclick="logout()">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- ══ Main ══ -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <button id="hamburger" onclick="toggleSidebar()">☰</button>
+        <div class="topbar-title" id="topbar-title">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-date">📅 <span id="topbar-date"></span></div>
+        <button class="btn btn-ghost btn-sm" onclick="refreshData()">🔄 Refresh</button>
+        <button class="btn btn-ghost btn-sm" onclick="exportPDF()">📄 PDF</button>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <!-- ════════════ PAGE: Dashboard ════════════ -->
+      <div id="page-dashboard" class="page active">
+        <div class="page-header">
+          <div><h2>📊 Dashboard</h2><div class="sub">Real-time food quality analytics</div></div>
+        </div>
+
+        <!-- Stat cards -->
+        <div class="stats-grid" id="stats-grid">
+          <div class="stat-card"><div class="stat-icon si-purple">📝</div><div><div class="stat-val" id="s-total">—</div><div class="stat-label">Total Feedback</div><div class="stat-trend" id="s-today-count"></div></div></div>
+          <div class="stat-card"><div class="stat-icon si-yellow">⭐</div><div><div class="stat-val" id="s-avg">—</div><div class="stat-label">Overall Avg Rating</div><div class="stat-trend" id="s-today-avg"></div></div></div>
+          <div class="stat-card"><div class="stat-icon si-green">😊</div><div><div class="stat-val" id="s-pos">—</div><div class="stat-label">Positive</div></div></div>
+          <div class="stat-card"><div class="stat-icon si-red">😞</div><div><div class="stat-val" id="s-neg">—</div><div class="stat-label">Negative</div></div></div>
+          <div class="stat-card"><div class="stat-icon si-cyan">😐</div><div><div class="stat-val" id="s-neu">—</div><div class="stat-label">Neutral</div></div></div>
+        </div>
+
+        <!-- Today's meal ratings -->
+        <div class="meal-mini-grid" id="meal-mini-grid"></div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-head">
+              <div><h4>📈 Ratings Trend</h4><div class="sub">Average daily rating over time</div></div>
+              <div class="period-tabs">
+                <button class="period-tab active" onclick="setPeriod('weekly',this)">7 Days</button>
+                <button class="period-tab" onclick="setPeriod('monthly',this)">30 Days</button>
+              </div>
+            </div>
+            <div class="chart-wrap" style="height:240px;"><canvas id="trend-chart"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-head"><div><h4>🎭 Sentiment</h4><div class="sub">Overall distribution</div></div></div>
+            <div class="chart-wrap" style="height:240px;"><canvas id="sentiment-chart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="chart-card" style="margin-bottom:24px;">
+          <div class="chart-head"><div><h4>🍽️ Rating by Meal Type</h4><div class="sub">Average across all time</div></div></div>
+          <div class="chart-wrap" style="height:200px;"><canvas id="meal-chart"></canvas></div>
+        </div>
+      </div>
+
+      <!-- ════════════ PAGE: Feedback ════════════ -->
+      <div id="page-feedback" class="page">
+        <div class="page-header">
+          <div><h2>💬 All Feedback</h2><div class="sub">Browse and filter all student submissions</div></div>
+        </div>
+        <div class="table-card">
+          <div class="table-toolbar">
+            <div class="search-box">
+              <span class="ic">🔍</span>
+              <input type="text" id="fb-search" placeholder="Search feedback..." oninput="filterFeedback()"/>
+            </div>
+            <select class="filter-sel" id="fb-meal" onchange="filterFeedback()">
+              <option value="">All Meals</option>
+              <option>Breakfast</option><option>Lunch</option><option>Dinner</option>
+            </select>
+            <select class="filter-sel" id="fb-sent" onchange="filterFeedback()">
+              <option value="">All Sentiments</option>
+              <option>Positive</option><option>Neutral</option><option>Negative</option>
+            </select>
+            <input type="date" class="filter-sel" id="fb-date" onchange="filterFeedback()" title="Filter by date"/>
+            <button class="btn btn-ghost btn-sm" onclick="clearFilters()">✕ Clear</button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead><tr><th>#</th><th>Date</th><th>Meal</th><th>Rating</th><th>Sentiment</th><th>Feedback</th><th>Keywords</th></tr></thead>
+              <tbody id="fb-tbody"><tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted);">Loading...</td></tr></tbody>
+            </table>
+          </div>
+          <div class="pagination" id="fb-pagination"></div>
+        </div>
+      </div>
+
+      <!-- ════════════ PAGE: Analytics ════════════ -->
+      <div id="page-analytics" class="page">
+        <div class="page-header">
+          <div><h2>📈 Charts & Trends</h2><div class="sub">Detailed visualizations and analysis</div></div>
+          <div class="period-tabs">
+            <button class="period-tab active" onclick="setPeriod('weekly',this)">7 Days</button>
+            <button class="period-tab" onclick="setPeriod('monthly',this)">30 Days</button>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+          <div class="chart-card">
+            <div class="chart-head"><div><h4>📊 Ratings Trend</h4><div class="sub">Avg + submissions per day</div></div></div>
+            <div class="chart-wrap" style="height:260px;"><canvas id="trend-chart-2"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-head"><div><h4>🎭 Sentiment Split</h4><div class="sub">Positive vs Negative vs Neutral</div></div></div>
+            <div class="chart-wrap" style="height:260px;"><canvas id="sentiment-chart-2"></canvas></div>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-head"><div><h4>🍽️ Sentiment by Meal Type</h4><div class="sub">Breakdown per meal</div></div></div>
+          <div class="chart-wrap" style="height:240px;"><canvas id="meal-sent-chart"></canvas></div>
+        </div>
+      </div>
+
+      <!-- ════════════ PAGE: Keywords ════════════ -->
+      <div id="page-keywords" class="page">
+        <div class="page-header"><div><h2>🔍 Keyword Insights</h2><div class="sub">Top words extracted from student feedback</div></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div class="chart-card">
+            <h4 style="margin-bottom:16px;font-size:0.97rem;">⚠️ Top Complaint Keywords</h4>
+            <div id="kw-list"></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-head"><div><h4>📊 Keyword Frequency</h4></div></div>
+            <div class="chart-wrap" style="height:300px;"><canvas id="kw-chart"></canvas></div>
+          </div>
+        </div>
+        <div class="chart-card" style="margin-top:20px;">
+          <h4 style="margin-bottom:14px;font-size:0.97rem;">☁️ All Extracted Keywords</h4>
+          <div id="kw-cloud" style="display:flex;flex-wrap:wrap;gap:6px;min-height:48px;"></div>
+        </div>
+      </div>
+
+      <!-- ════════════ PAGE: Report ════════════ -->
+      <div id="page-report" class="page">
+        <div class="page-header">
+          <div><h2>📋 Daily Report</h2><div class="sub" id="report-date-sub">AI-generated summary for today</div></div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-ghost btn-sm" onclick="exportPDF()">📄 Export PDF</button>
+            <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ Print</button>
+          </div>
+        </div>
+        <div class="report-card">
+          <h3>📋 Today's Analysis</h3>
+          <div class="report-lines" id="report-lines"><div class="report-line">Loading report...</div></div>
+        </div>
+        <div class="stats-grid" style="margin-bottom:24px;">
+          <div class="stat-card"><div class="stat-icon si-purple">📝</div><div><div class="stat-val" id="rpt-total">—</div><div class="stat-label">Responses Today</div></div></div>
+          <div class="stat-card"><div class="stat-icon si-yellow">⭐</div><div><div class="stat-val" id="rpt-avg">—</div><div class="stat-label">Avg Rating Today</div></div></div>
+          <div class="stat-card"><div class="stat-icon si-green">😊</div><div><div class="stat-val" id="rpt-pos">—</div><div class="stat-label">Positive</div></div></div>
+          <div class="stat-card"><div class="stat-icon si-red">😞</div><div><div class="stat-val" id="rpt-neg">—</div><div class="stat-label">Negative</div></div></div>
+        </div>
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-head"><div><h4>📊 Weekly Trend</h4></div></div>
+            <div class="chart-wrap" style="height:200px;"><canvas id="rpt-trend"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-head"><div><h4>🎭 Today's Sentiment</h4></div></div>
+            <div class="chart-wrap" style="height:200px;"><canvas id="rpt-sent"></canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════ PAGE: Menu ════════════ -->
+      <div id="page-menu" class="page">
+        <div class="page-header"><div><h2>🍛 Menu Manager</h2><div class="sub">Add or update daily mess menus</div></div></div>
+        <div class="menu-mgmt-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+          <div class="chart-card">
+            <h4 style="margin-bottom:20px;font-size:0.97rem;">➕ Add / Update Menu</h4>
+            <div id="menu-alert"></div>
+            <form id="menu-form" novalidate>
+              <div class="form-group">
+                <label class="form-label">Date <span class="req">*</span></label>
+                <input type="date" id="menu-date" class="form-control" required/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Meal Type <span class="req">*</span></label>
+                <select id="menu-meal" class="form-control" required>
+                  <option value="">Select meal type</option>
+                  <option>Breakfast</option><option>Lunch</option><option>Dinner</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Menu Items <span class="req">*</span></label>
+                <div style="display:flex;gap:8px;">
+                  <input type="text" id="item-input" class="form-control" placeholder="Type item and press Enter"/>
+                  <button type="button" class="btn btn-ghost btn-sm" onclick="addItem()" style="white-space:nowrap;">+ Add</button>
+                </div>
+                <div class="items-tags" id="items-tags"><span style="color:var(--text-muted);font-size:0.8rem;">No items added yet</span></div>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">💾 Save Menu</button>
+            </form>
+          </div>
+          <div class="chart-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <h4 style="font-size:0.97rem;">👀 Menu Preview</h4>
+              <input type="date" id="preview-date" class="filter-sel" onchange="loadMenuPreview()"/>
+            </div>
+            <div id="menu-preview"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-content -->
+  </div><!-- /main -->
+</div><!-- /dash-layout -->
+
+<!-- Feedback detail modal -->
+<div id="fb-modal" class="modal-overlay" style="display:none;" onclick="closeFbModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>💬 Feedback Details</h3>
+      <button class="modal-close" onclick="closeFbModal()">✕</button>
+    </div>
+    <div class="modal-body" id="fb-modal-body"></div>
+  </div>
+</div>
+
+<!-- Mobile sidebar overlay -->
+<div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

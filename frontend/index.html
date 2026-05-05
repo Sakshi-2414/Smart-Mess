@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Mess — Student Portal</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/student.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>"/>
+</head>
+<body>
+
+<!-- ── Navbar ─────────────────────────────────── -->
+<nav class="navbar">
+  <a href="/" class="navbar-brand">
+    <div class="logo-mark">🍽️</div>
+    <span>Smart Mess</span>
+  </a>
+  <div class="navbar-links">
+    <a href="#menu">Today's Menu</a>
+    <a href="#feedback">Rate Meal</a>
+    <a href="login.html" class="btn btn-primary btn-sm">Admin Portal</a>
+  </div>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="glow-pill" style="margin:0 auto 20px;width:fit-content;">
+      <span class="dot"></span>
+      <span id="hero-date">Loading...</span>
+    </div>
+    <h1>Your <span class="gradient-text">Mess Experience</span><br/>Starts Here</h1>
+    <p>View today's menu, rate your meal, and help us serve you better with honest feedback.</p>
+    <div class="hero-actions">
+      <a href="#menu"     class="btn btn-primary btn-lg">📋 View Menu</a>
+      <a href="#feedback" class="btn btn-ghost btn-lg">✍️ Give Feedback</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Main ───────────────────────────────────── -->
+<main class="container">
+
+  <!-- Today's Menu -->
+  <section class="section" id="menu">
+    <div class="section-header">
+      <h2>🗓️ Today's <span class="gradient-text">Menu</span></h2>
+      <p>Check what's being served. Fresh ingredients, served with care.</p>
+    </div>
+
+    <div class="menu-tabs">
+      <button class="menu-tab active" data-meal="">All Meals</button>
+      <button class="menu-tab" data-meal="Breakfast">🌅 Breakfast</button>
+      <button class="menu-tab" data-meal="Lunch">☀️ Lunch</button>
+      <button class="menu-tab" data-meal="Dinner">🌙 Dinner</button>
+      <input type="date" class="menu-date-input" id="menu-date" title="Select date"/>
+    </div>
+
+    <div id="menu-grid" class="menu-grid">
+      <div class="card"><div class="skeleton" style="height:20px;width:50%;margin-bottom:14px;"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton" style="width:70%;"></div></div>
+      <div class="card"><div class="skeleton" style="height:20px;width:50%;margin-bottom:14px;"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton" style="width:70%;"></div></div>
+      <div class="card"><div class="skeleton" style="height:20px;width:50%;margin-bottom:14px;"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton" style="width:70%;"></div></div>
+    </div>
+  </section>
+
+  <!-- Feedback Form -->
+  <section class="section" id="feedback">
+    <div class="section-header">
+      <h2>✍️ Share Your <span class="gradient-text">Feedback</span></h2>
+      <p>Your honest opinion helps us improve every meal. Takes less than a minute.</p>
+    </div>
+
+    <div class="feedback-form-wrap">
+      <div class="card">
+        <div id="form-alert"></div>
+        <form id="feedback-form" novalidate>
+
+          <!-- Meal type -->
+          <div class="form-group">
+            <label class="form-label">Meal Type <span class="req">*</span></label>
+            <div class="meal-selector">
+              <div class="meal-opt">
+                <input type="radio" name="meal_type" id="m-breakfast" value="Breakfast"/>
+                <label for="m-breakfast"><span class="em">🌅</span>Breakfast<small>7:30 – 9:30 AM</small></label>
+              </div>
+              <div class="meal-opt">
+                <input type="radio" name="meal_type" id="m-lunch" value="Lunch"/>
+                <label for="m-lunch"><span class="em">☀️</span>Lunch<small>12:30 – 2:30 PM</small></label>
+              </div>
+              <div class="meal-opt">
+                <input type="radio" name="meal_type" id="m-dinner" value="Dinner"/>
+                <label for="m-dinner"><span class="em">🌙</span>Dinner<small>7:30 – 9:30 PM</small></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Star rating -->
+          <div class="form-group">
+            <label class="form-label">Your Rating <span class="req">*</span></label>
+            <div class="star-wrap">
+              <input type="radio" name="rating" id="s5" value="5"/><label for="s5" title="Excellent">★</label>
+              <input type="radio" name="rating" id="s4" value="4"/><label for="s4" title="Good">★</label>
+              <input type="radio" name="rating" id="s3" value="3"/><label for="s3" title="Average">★</label>
+              <input type="radio" name="rating" id="s2" value="2"/><label for="s2" title="Poor">★</label>
+              <input type="radio" name="rating" id="s1" value="1"/><label for="s1" title="Terrible">★</label>
+            </div>
+            <p class="rating-hint" id="rating-hint">Tap a star to rate your meal</p>
+          </div>
+
+          <!-- Feedback text -->
+          <div class="form-group">
+            <label class="form-label" for="feedback-text">Your Feedback <span class="req">*</span></label>
+            <div class="textarea-wrap">
+              <textarea id="feedback-text" class="form-control" placeholder="Describe your experience... e.g. 'The dal was tasty and hot!' or 'Food was cold and oily today.'" maxlength="1000" rows="5"></textarea>
+              <button type="button" class="voice-btn" id="voice-btn">🎤 <span id="vbtn-text">Speak</span></button>
+            </div>
+            <div class="char-counter" id="char-counter">0 / 1000</div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full btn-lg" id="submit-btn">
+            <span id="submit-content">📤 Submit Feedback</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>🍽️ <strong>Smart Mess</strong> — Food Quality Analyzer &nbsp;·&nbsp; <a href="login.html">Admin Portal →</a></p>
+</footer>
+
+<!-- Success modal -->
+<div id="success-modal" class="modal-overlay" style="display:none;">
+  <div class="success-inner">
+    <span class="success-icon">🎉</span>
+    <h2>Feedback Submitted!</h2>
+    <p>Thank you for helping us improve meal quality.</p>
+    <p id="modal-sentiment" style="margin:10px 0 24px;font-size:0.88rem;"></p>
+    <button class="btn btn-primary btn-full" onclick="closeSuccessModal()">Done</button>
+  </div>
+</div>
+
+<script src="js/student.js"></script>
+</body>
+</html>

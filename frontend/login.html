@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login — Smart Mess</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>"/>
+</head>
+<body class="login-body">
+
+<div class="login-wrap">
+  <!-- Left branding -->
+  <div class="login-left">
+    <div class="logo-mark">🍽️</div>
+    <h1>Smart Mess<br/><span class="gradient-text">Admin Portal</span></h1>
+    <p>Manage daily menus, analyze student feedback with AI-powered sentiment analysis, and generate insightful quality reports.</p>
+    <ul class="feature-list">
+      <li><div class="feat-icon">📊</div>Real-time analytics dashboard</li>
+      <li><div class="feat-icon">🧠</div>NLP sentiment analysis</li>
+      <li><div class="feat-icon">📈</div>Ratings trend charts</li>
+      <li><div class="feat-icon">🍛</div>Daily menu management</li>
+      <li><div class="feat-icon">📋</div>Auto-generated reports</li>
+      <li><div class="feat-icon">🔍</div>Keyword complaint insights</li>
+    </ul>
+  </div>
+
+  <!-- Right login card -->
+  <div class="login-card">
+    <div class="login-card-head">
+      <div class="card-logo">🔐</div>
+      <h2>Welcome back</h2>
+      <p>Sign in to access your dashboard</p>
+    </div>
+
+    <div id="login-alert"></div>
+
+    <form id="login-form" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="username">Username</label>
+        <div class="input-with-icon">
+          <span class="ic">👤</span>
+          <input type="text" id="username" class="form-control" placeholder="Enter username" autocomplete="username" required/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <div class="input-with-icon" style="position:relative;">
+          <span class="ic">🔑</span>
+          <input type="password" id="password" class="form-control" placeholder="Enter password" autocomplete="current-password" required/>
+          <button type="button" class="toggle-pw" id="toggle-pw" title="Show/hide">👁️</button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn" style="margin-top:8px;">
+        <span id="login-content">🚀 Sign In to Dashboard</span>
+      </button>
+    </form>
+
+    <p style="text-align:center;margin-top:20px;font-size:0.83rem;">
+      <a href="/" style="color:var(--text-muted);">← Back to Student Portal</a>
+    </p>
+  </div>
+</div>
+
+<script src="js/login.js"></script>
+</body>
+</html>
