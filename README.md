@@ -1,30 +1,19 @@
 # 🍽️ Smart Mess — Food Quality Analyzer
 
-Modern hostel mess management system with dark purple UI, JWT authentication, NLP sentiment analysis, and real-time analytics.
+In many hostels, students face issues like poor food quality, unhygienic conditions, and repetitive menus, but there is no efficient system to track and analyze these problems. Feedback is often ignored or unstructured, making it difficult for administrators to take action.
+
+Smart Mess  addresses this problem by providing a digital platform where students can submit feedback easily. The system uses NLP-based sentiment analysis to automatically evaluate feedback, detect common complaints, and generate insights. This helps mess administrators understand real issues and improve food quality, hygiene, and overall student satisfaction.
 
 ---
 
-## 🚀 Quick Start
+🚀 Overview
 
-```bash
-# 1. Start MongoDB locally
-mongod --dbpath /data/db
+Smart Mess  is designed to solve real-world problems in hostel food systems by combining:
 
-# 2. Install dependencies
-cd smart-mess/backend
-npm install
-
-# 3. Seed database (creates admin + sample data — run ONCE)
-node seed.js
-
-# 4. Start server
-npm start
-
-# 5. Open browser
-open http://localhost:5000
-```
-
-**Admin credentials:** `admin` / `admin123`
+📊 Real-time feedback collection
+🤖 AI-based sentiment analysis
+🔐 Secure admin dashboard (JWT authentication)
+📈 Analytics & insights for better decision-making
 
 ---
 
@@ -68,7 +57,64 @@ smart-mess/
         ├── login.js
         └── admin.js
 ```
+✨ Key Features
+👨‍🎓 Student Side
+Submit daily food feedback
+View mess menu
+Simple and responsive UI
+👨‍💼 Admin Side
+Secure login with JWT authentication
+View all feedback in real-time
+Manage daily menu
+Access analytics dashboard
+🧠 AI / NLP Features
+Sentiment analysis (Positive / Neutral / Negative)
+Keyword extraction (30+ food-related issues)
+Complaint detection (e.g., oily, cold, stale)
+Rating-adjusted sentiment scoring
+Automated insights & recommendations
+🛠️ Tech Stack
 
+Frontend
+
+HTML, CSS, JavaScript
+
+Backend
+
+Node.js
+Express.js
+
+Database
+
+MongoDB
+
+Other
+
+JWT Authentication
+Custom NLP engine (no external ML libraries)
+---
+🚀 Getting Started
+1️⃣ Start MongoDB
+mongod --dbpath /data/db
+2️⃣ Install dependencies
+cd backend
+npm install
+3️⃣ Setup environment variables
+
+Create a .env file inside backend/:
+
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+PORT=5000
+4️⃣ Seed database (run once)
+node seed.js
+5️⃣ Start server
+npm start
+6️⃣ Open in browser
+http://localhost:5000
+🔐 Admin Credentials (Demo)
+Username: admin
+Password: admin123
 ---
 
 ## 🔌 API Endpoints
