@@ -87,14 +87,7 @@ smart-mess/
 
 ---
 
-## ⚙️ Environment Variables (`backend/.env`)
 
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/smart_mess
-JWT_SECRET=your_secret_here
-JWT_EXPIRES_IN=24h
-```
 
 ---
 
