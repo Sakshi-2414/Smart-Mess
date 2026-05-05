@@ -1,4 +1,4 @@
-# 🍽️ Smart Mess v2 — Food Quality Analyzer
+# 🍽️ Smart Mess — Food Quality Analyzer
 
 Modern hostel mess management system with dark purple UI, JWT authentication, NLP sentiment analysis, and real-time analytics.
 
