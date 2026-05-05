@@ -1,19 +1,64 @@
-# 🍽️ Smart Mess — Food Quality Analyzer
+# 🍽️ Smart Mess v2 — AI Food Quality Analyzer
 
-In many hostels, students face issues like poor food quality, unhygienic conditions, and repetitive menus, but there is no efficient system to track and analyze these problems. Feedback is often ignored or unstructured, making it difficult for administrators to take action.
-
-Smart Mess  addresses this problem by providing a digital platform where students can submit feedback easily. The system uses NLP-based sentiment analysis to automatically evaluate feedback, detect common complaints, and generate insights. This helps mess administrators understand real issues and improve food quality, hygiene, and overall student satisfaction.
+A modern hostel mess management system that collects student feedback, analyzes food quality using NLP-based sentiment analysis, and provides actionable insights to administrators.
 
 ---
 
-🚀 Overview
+## 🚀 Overview
 
-Smart Mess  is designed to solve real-world problems in hostel food systems by combining:
+Smart Mess v2 is designed to solve real-world problems in hostel food systems by combining:
 
-📊 Real-time feedback collection
-🤖 AI-based sentiment analysis
-🔐 Secure admin dashboard (JWT authentication)
-📈 Analytics & insights for better decision-making
+* 📊 Real-time feedback collection
+* 🤖 AI-based sentiment analysis
+* 🔐 Secure admin dashboard (JWT authentication)
+* 📈 Analytics & insights for better decision-making
+
+---
+
+## ✨ Key Features
+
+### 👨‍🎓 Student Side
+
+* Submit daily food feedback
+* View mess menu
+* Simple and responsive UI
+
+### 👨‍💼 Admin Side
+
+* Secure login with JWT authentication
+* View all feedback in real-time
+* Manage daily menu
+* Access analytics dashboard
+
+### 🧠 AI / NLP Features
+
+* Sentiment analysis (Positive / Neutral / Negative)
+* Keyword extraction (30+ food-related issues)
+* Complaint detection (e.g., oily, cold, stale)
+* Rating-adjusted sentiment scoring
+* Automated insights & recommendations
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**
+
+* HTML, CSS, JavaScript
+
+**Backend**
+
+* Node.js
+* Express.js
+
+**Database**
+
+* MongoDB
+
+**Other**
+
+* JWT Authentication
+* Custom NLP engine (no external ML libraries)
 
 ---
 
@@ -22,124 +67,117 @@ Smart Mess  is designed to solve real-world problems in hostel food systems by c
 ```
 smart-mess/
 ├── backend/
-│   ├── server.js                  ← Express entry point
-│   ├── package.json
-│   ├── .env                       ← Environment config
-│   ├── seed.js                    ← Seeds admin + sample data
+│   ├── server.js
+│   ├── seed.js
 │   ├── models/
-│   │   ├── Feedback.js
-│   │   ├── Admin.js
-│   │   └── Menu.js
 │   ├── routes/
-│   │   ├── feedback.js
-│   │   ├── admin.js
-│   │   ├── menu.js
-│   │   └── analytics.js
 │   ├── controllers/
-│   │   ├── feedbackController.js
-│   │   ├── adminController.js
-│   │   ├── menuController.js
-│   │   └── analyticsController.js
 │   ├── middleware/
-│   │   └── auth.js                ← JWT middleware
-│   └── utils/
-│       └── nlp.js                 ← Sentiment analysis + keyword extraction
+│   └── utils/nlp.js
 └── frontend/
-    ├── index.html                 ← Student portal
-    ├── login.html                 ← Admin login
-    ├── admin.html                 ← Admin dashboard
+    ├── index.html
+    ├── login.html
+    ├── admin.html
     ├── css/
-    │   ├── style.css              ← Global design system
-    │   ├── student.css            ← Student portal styles
-    │   └── admin.css              ← Admin dashboard styles
     └── js/
-        ├── student.js
-        ├── login.js
-        └── admin.js
 ```
-✨ Key Features
-👨‍🎓 Student Side
-Submit daily food feedback
-View mess menu
-Simple and responsive UI
-👨‍💼 Admin Side
-Secure login with JWT authentication
-View all feedback in real-time
-Manage daily menu
-Access analytics dashboard
-🧠 AI / NLP Features
-Sentiment analysis (Positive / Neutral / Negative)
-Keyword extraction (30+ food-related issues)
-Complaint detection (e.g., oily, cold, stale)
-Rating-adjusted sentiment scoring
-Automated insights & recommendations
-🛠️ Tech Stack
 
-Frontend
-
-HTML, CSS, JavaScript
-
-Backend
-
-Node.js
-Express.js
-
-Database
-
-MongoDB
-
-Other
-
-JWT Authentication
-Custom NLP engine (no external ML libraries)
 ---
-🚀 Getting Started
-1️⃣ Start MongoDB
+
+## 🚀 Getting Started
+
+### 1️⃣ Start MongoDB
+
+```bash
 mongod --dbpath /data/db
-2️⃣ Install dependencies
+```
+
+### 2️⃣ Install dependencies
+
+```bash
 cd backend
 npm install
-3️⃣ Setup environment variables
+```
 
-Create a .env file inside backend/:
+### 3️⃣ Setup environment variables
 
+Create a `.env` file inside `backend/`:
+
+```
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 PORT=5000
-4️⃣ Seed database (run once)
+```
+
+### 4️⃣ Seed database (run once)
+
+```bash
 node seed.js
-5️⃣ Start server
+```
+
+### 5️⃣ Start server
+
+```bash
 npm start
-6️⃣ Open in browser
+```
+
+### 6️⃣ Open in browser
+
+```
 http://localhost:5000
-🔐 Admin Credentials (Demo)
+```
+
+---
+
+## 🔐 Admin Credentials (Demo)
+
+```
 Username: admin
 Password: admin123
+```
+
 ---
 
 ## 🔌 API Endpoints
 
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| POST | `/api/feedback` | None | Submit feedback |
-| GET | `/api/feedback` | Admin | Get all feedback |
-| POST | `/api/admin/login` | None | Admin login → JWT |
-| GET | `/api/admin/profile` | Admin | Get profile |
-| GET | `/api/menu?date=YYYY-MM-DD` | None | Get daily menu |
-| POST | `/api/menu` | Admin | Add/update menu |
-| DELETE | `/api/menu/:id` | Admin | Delete menu |
-| GET | `/api/analytics?period=weekly` | Admin | Full analytics |
-| GET | `/api/health` | None | Health check |
+| Method | Endpoint             | Description              |
+| ------ | -------------------- | ------------------------ |
+| POST   | `/api/feedback`      | Submit feedback          |
+| GET    | `/api/feedback`      | Get all feedback (Admin) |
+| POST   | `/api/admin/login`   | Admin login              |
+| GET    | `/api/admin/profile` | Get admin profile        |
+| GET    | `/api/menu`          | Get daily menu           |
+| POST   | `/api/menu`          | Add/update menu          |
+| DELETE | `/api/menu/:id`      | Delete menu              |
+| GET    | `/api/analytics`     | Get analytics            |
 
 ---
 
+## 📸 Screenshots
+![Homepage](screenshots/homepage.png)
 
 
 ---
 
-## 🧠 NLP Features (no external ML libraries)
+## 🌟 Future Improvements
 
-- **Sentiment Analysis** — keyword matching with negation handling
-- **Complaint Keywords** — 30+ tracked issues (oily, cold, late, stale...)
-- **Daily Report** — auto-generates recommendations
-- **Rating-weighted** — rating adjusts sentiment when text is ambiguous
+* Deploy to cloud (Vercel / Render)
+* Add real ML model (instead of rule-based NLP)
+* Mobile app integration
+* Multi-user authentication
+
+---
+
+## 👨‍💻 Author
+
+**Sakshi Joshi**
+
+---
+
+## 📌 Conclusion
+
+Smart Mess demonstrates how AI can be applied to solve everyday problems like food quality monitoring using simple yet effective techniques.
+
+---
+
+⭐ If you like this project, consider giving it a star!
