@@ -2,7 +2,7 @@
 
 In many hostels, students face issues like poor food quality, unhygienic conditions, and repetitive menus, but there is no efficient system to track and analyze these problems. Feedback is often ignored or unstructured, making it difficult for administrators to take action.
 
-Smart Mess v2 addresses this problem by providing a digital platform where students can submit feedback easily. The system uses NLP-based sentiment analysis to automatically evaluate feedback, detect common complaints, and generate insights. This helps mess administrators understand real issues and improve food quality, hygiene, and overall student satisfaction.
+Smart Mess addresses this problem by providing a digital platform where students can submit feedback easily. The system uses NLP-based sentiment analysis to automatically evaluate feedback, detect common complaints, and generate insights. This helps mess administrators understand real issues and improve food quality, hygiene, and overall student satisfaction.
 
 
 ---
@@ -156,6 +156,16 @@ Password: admin123
 
 ---
 
+## 📸 Screenshots
+
+### 🏠 Student Portal
+![Student Portal](screenshots/homepage.png)
+
+### 📝 Feedback Page
+![Feedback](screenshots/feedback.png)
+
+### 📊 Admin Dashboard
+![Admin Dashboard](screenshots/admin-dashboard.png)
 ---
 
 ## 🌟 Future Improvements
