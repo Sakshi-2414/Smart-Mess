@@ -103,9 +103,8 @@ npm install
 ```
 
 ### 3️⃣ Setup environment variables
-
+```
 Create a `.env` file inside `backend/`:
-
 ```
 
 ### 4️⃣ Seed database (run once)
